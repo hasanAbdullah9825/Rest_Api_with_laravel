@@ -13,17 +13,7 @@ class CustomerSeeder extends Seeder
      *
      * @return void
      */
-    // public function run()
-    // {
-    //     Customer::factory()
-    //         ->count(7)
-    //         ->hasInvoices(2,function ( array $attributes,Customer $user) {
-    //             return ['id' => $user->id];
-    //         })
-    //         ->create();
 
-
-    // }
 
     public function run()
     {
