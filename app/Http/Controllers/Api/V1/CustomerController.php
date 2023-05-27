@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\V1\CustomerResource;
 use App\Http\Resources\V1\CustomerCollection;
+use App\Filters\V1\CustomersFilter;
 
 class CustomerController extends Controller
 {
@@ -17,10 +19,24 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       //$customer= Customer::all();
-       return new CustomerCollection(Customer::paginate());
+       
+       //return new CustomerCollection(Customer::paginate());
+
+
+
+       $filter = new CustomersFilter();
+       $queryItems = $filter->transform($request); //[['column', 'operator', 'value']]
+
+       if(count($queryItems)==0){
+        return new CustomerCollection(Customer::paginate());
+       }
+     
+       return new CustomerCollection(Customer::where($queryItems)->paginate()->appends($request->query()));
+
+
+
     }
 
     /**
