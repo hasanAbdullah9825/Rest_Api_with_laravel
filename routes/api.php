@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+//use App\Http\Controllers\TestController;
+//use App\Http\Controllers\Api\V1\InvoiceController;
+//use App\Http\Controllers\Api\V1\CustomerController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +23,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route:: group(['prefix'=>'v1','namespace'=>'App\Http\Controllers\Api\V1'],function(){
-    Route::apiResource('customers', CustomerController::class);
-    Route::apiResource('invoices', InvoiceController::class);
+Route::prefix('v1')->group(function () {
+    Route::apiResource('customers', App\Http\Controllers\Api\V1\CustomerController::class);
+    Route::apiResource('invoices', App\Http\Controllers\Api\V1\InvoiceController::class);
+    Route::post('invoices/bulk',[App\Http\Controllers\Api\V1\InvoiceController::class,'bulkStore']);
 });
-

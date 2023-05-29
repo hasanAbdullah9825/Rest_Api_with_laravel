@@ -42,7 +42,9 @@ class CustomerController extends Controller
     {
         //
     }
-
+public function bulkStore(Request $request){
+    return "hello";
+}
     /**
      * Store a newly created resource in storage.
      *
